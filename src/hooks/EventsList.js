@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import Event from "./Event";
 
 function EventsList() {
   // production
@@ -10,7 +11,7 @@ function EventsList() {
   // Component's state
   const [events, setEvents] = useState([]);
 
-  async function fetchEvents() {
+  async function getEvents() {
     try {
       const response = await fetch(API_URL);
       return response.json();
@@ -20,7 +21,7 @@ function EventsList() {
   }
 
   useEffect(() => {
-    fetchEvents().then(({ popular_event_ids }) => {
+    getEvents().then(({ popular_event_ids }) => {
       setEvents([...popular_event_ids]);
     }, console.error);
   }, [events, setEvents]);
@@ -28,13 +29,10 @@ function EventsList() {
   return (
     <div>
       EVENTS
-      {events.map((event) => {
-        return (
-          <div className="event-card" key={event}>
-            <h3>{event}</h3>
-          </div>
-        );
-      })}
+      {events.map((event) => (
+        <Event id={event} />
+      ))}
+      )
     </div>
   );
 }
