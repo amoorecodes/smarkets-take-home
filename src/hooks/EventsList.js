@@ -27,8 +27,7 @@ function EventsList() {
   }, [events, setEvents]);
 
   return (
-    <div>
-      EVENTS
+    <div className="event-list">
       {events.map((event) => (
         <Event id={event} />
       ))}
